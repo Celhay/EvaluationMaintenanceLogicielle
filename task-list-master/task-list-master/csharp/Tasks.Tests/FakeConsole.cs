@@ -16,11 +16,11 @@ namespace Tasks
 
 		public FakeConsole() 
 		{
-			Stream inputStream = new BlockingStream(new ProducerConsumerStream());
+			Stream inputStream = new System.IO.MemoryStream();
 			this.inputReader = new StreamReader(inputStream);
 			this.inputWriter = new StreamWriter(inputStream) { AutoFlush = true };
 
-			Stream outputStream = new BlockingStream(new ProducerConsumerStream());
+			Stream outputStream = new System.IO.MemoryStream();
 			this.outputReader = new StreamReader(outputStream);
 			this.outputWriter = new StreamWriter(outputStream) { AutoFlush = true };
 		}
