@@ -9,13 +9,19 @@ namespace Tasks.Tests
     {
         private StringWriter stringWriter;
         private TextWriter textWriter;
-        public string Get()
+        public Logger()
         {
-            string
+            stringWriter = new StringWriter();
+            textWriter = Console.Out;
+            Console.SetOut(stringWriter);
+        }
+        public string GetOutput()
+        {
+            return stringWriter.ToString();
         }
         public void Dispose()
         {
-            Console.SetOut(originalOutput);
+            Console.SetOut(textWriter);
         }
     }
 }
