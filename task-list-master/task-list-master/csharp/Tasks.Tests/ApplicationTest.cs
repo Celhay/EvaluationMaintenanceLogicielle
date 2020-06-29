@@ -118,8 +118,9 @@ namespace Tasks
 				+ "  check <task ID>" + "\n"
 				+ "  uncheck <task ID>" + "\n"
 				+ "\n";
-			this.console.SendInput("show" + Environment.NewLine);
-			Assert.That(string.Empty, Is.EqualTo(console.RetrieveOutput(0)));
+			this.console.SendInput("help" + Environment.NewLine);
+			var temp = console.RetrieveOutput(120);
+			Assert.That(help, Is.EqualTo(console.RetrieveOutput(help.Length)));
 		}
 		[Test, Timeout(1000)]
 		public void ShowTest()
