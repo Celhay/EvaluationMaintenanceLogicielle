@@ -28,7 +28,7 @@ namespace Tasks
 			{
 				return;
 			}
-
+			 
 			applicationThread.Abort();
 			throw new Exception("The application is still running.");
 		}
