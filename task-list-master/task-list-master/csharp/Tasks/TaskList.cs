@@ -27,7 +27,7 @@ namespace Tasks
         {
             console.Write("> ");
             var command = console.ReadLine();
-            while (command == QUIT)
+            while (command != QUIT)
             {
                 Execute(command);
 				console.Write("> ");
