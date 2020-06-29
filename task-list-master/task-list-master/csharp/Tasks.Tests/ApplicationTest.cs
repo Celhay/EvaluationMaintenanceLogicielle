@@ -87,7 +87,7 @@ namespace Tasks
 			this.console.SendInput("add project secrets" + Environment.NewLine);
 			string expected = "secrets" + "\n" + "";
 			var actual = console.RetrieveOutput(expected.Length).ToString();
-			Assert.That(expected, Is.EqualTo(console.RetrieveOutput(0)));
+			Assert.That(expected, Is.EqualTo(actual));
 		}
 
         [Test, Timeout(1000)]
@@ -102,7 +102,7 @@ namespace Tasks
 					"    [ ] 2: Destroy all humans." + "\n" +
 					"";
             var actual = console.RetrieveOutput(expected.Length).ToString();
-			Assert.That(expected, Is.EqualTo(console.RetrieveOutput(0)));
+			Assert.That(expected, Is.EqualTo(actual));
 		}
 
         [Test, Timeout(1000)]
@@ -118,7 +118,7 @@ namespace Tasks
                     "    [ ] 2: Destroy all humans." + "\n" +
                     "";
             var actual = console.RetrieveOutput(expected.Length).ToString();
-			Assert.That(expected, Is.EqualTo(console.RetrieveOutput(0)));
+			Assert.That(expected, Is.EqualTo(actual));
 		}
 
 
