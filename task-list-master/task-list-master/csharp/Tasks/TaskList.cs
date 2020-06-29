@@ -7,18 +7,12 @@ namespace Tasks
 	public sealed class TaskList
 	{
 		private readonly IDictionary<string, IList<Task>> tasks = new Dictionary<string, IList<Task>>();
-		private readonly IConsole console;
 
 		private long lastId = 0;
 
 		public static void Main(string[] args)
 		{
-			new TaskList(new RealConsole()).Run();
-		}
-
-		public TaskList(IConsole console)
-		{
-			this.console = console;
+			new TaskList().Run();
 		}
         //L'application commence ici
         public void Run()
