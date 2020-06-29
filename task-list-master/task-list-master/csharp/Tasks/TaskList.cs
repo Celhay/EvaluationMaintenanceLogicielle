@@ -22,15 +22,15 @@ namespace Tasks
 		{
 			this.console = console;
 		}
-        //L'application commence Ici
+        //L'application commence ici
         public void Run()
         {
-            console.Write("> ");
+            console.WriteChevrons();
             var command = console.ReadLine();
             while (command != QUIT)
             {
                 Execute(command);
-				console.Write("> ");
+				console.WriteChevrons();
 				command = console.ReadLine();
 			}
         }
