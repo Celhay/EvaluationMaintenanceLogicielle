@@ -82,13 +82,13 @@ namespace Tasks
 			//Execute("quit");
 		}
 
-		//private void Execute(string command)
-		//{
-		//	Read(PROMPT);
-		//	Write(command);
-		//}
+        private void Execute(string command)
+        {
+            Read(PROMPT);
+            Write(command);
+        }
 
-		private void Read(string expectedOutput)
+        private void Read(string expectedOutput)
 		{
 			var length = expectedOutput.Length;
 			var actualOutput = console.RetrieveOutput(expectedOutput.Length);
@@ -118,9 +118,17 @@ namespace Tasks
 				+ "  check <task ID>" + "\n"
 				+ "  uncheck <task ID>" + "\n"
 				+ "\n";
-			this.console.SendInput("help" + Environment.NewLine);
-			var temp = console.RetrieveOutput(120);
-			Assert.That(help, Is.EqualTo(help));
+			Execute("help");
+
+			ReadLines("Commands:" ,
+				"  show" ,
+				"  add project <project name>",
+				"  add task <project name> <task description>",
+				"  check <task ID>",
+				"  uncheck <task ID>",
+				"");
+
+			Assert.That("", Is.EqualTo(""));
 		}
 		[Test, Timeout(1000)]
 		public void ShowTest()
