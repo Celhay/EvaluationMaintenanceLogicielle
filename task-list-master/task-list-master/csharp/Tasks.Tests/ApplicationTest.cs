@@ -117,14 +117,7 @@ namespace Tasks
 		[Test, Timeout(1000)]
 		public void HelpTest()
 		{
-			string help = "Commands:" + "\n"
-				+ "  show" + "\n"
-				+ "  add project <project name>" + "\n"
-				+ "  add task <project name> <task description>" + "\n"
-				+ "  check <task ID>" + "\n"
-				+ "  uncheck <task ID>" + "\n"
-				+ "\n";
-			Execute("help");
+			Write("help");
 
 			ReadLines("Commands:" ,
 				"  show" ,
@@ -134,36 +127,52 @@ namespace Tasks
 				"  uncheck <task ID>",
 				"");
 
-			Assert.That(help, Is.EqualTo(""));
+			Assert.That(true, Is.EqualTo(true));
 		}
-		//[Test, Timeout(1000)]
-		//public void ShowTest()
-  //      {
-		//	this.console.SendInput("show" + Environment.NewLine);
-		//	Assert.That(string.Empty, Is.EqualTo(console.RetrieveOutput(0)));
-		//}
+        [Test, Timeout(1000)]
+        public void ShowTest()
+        {
+            this.console.SendInput("show" + Environment.NewLine);
+            Assert.That(string.Empty, Is.EqualTo(console.RetrieveOutput(0)));
+        }
 
-		//[Test, Timeout(1000)]
-		//public void AddTest()
-		//{
-		//	this.console.SendInput("show" + Environment.NewLine);
-		//	Assert.That(string.Empty, Is.EqualTo(console.RetrieveOutput(0)));
-		//}
+        [Test, Timeout(1000)]
+        public void AddProjectTest()
+        {
+			this.console.SendInput("add project secrets" + Environment.NewLine);
+			ReadLines("secrets",
+					"");
 
-		//[Test, Timeout(1000)]
-		//public void AddTaskTest()
-		//{
-		//	this.console.SendInput("show" + Environment.NewLine);
-		//	Assert.That(string.Empty, Is.EqualTo(console.RetrieveOutput(0)));
-		//}
-		
-		//[Test, Timeout(1000)]
-		//public void SetDoneTest()
-		//{
-		//	this.console.SendInput("show" + Environment.NewLine);
-		//	Assert.That(string.Empty, Is.EqualTo(console.RetrieveOutput(0)));
-		//}
-		
+        }
 
-	}
+        [Test, Timeout(1000)]
+        public void AddTaskTest()
+        {
+			this.console.SendInput("add project secrets" + Environment.NewLine);
+			this.console.SendInput("add task secrets Eat more donuts." + Environment.NewLine);
+			this.console.SendInput("add task secrets Destroy all humans." + Environment.NewLine);
+
+			ReadLines("secrets",
+					"    [ ] 1: Eat more donuts.",
+					"    [ ] 2: Destroy all humans.",
+					"");
+
+        }
+
+        [Test, Timeout(1000)]
+        public void SetDoneTest()
+        {
+			this.console.SendInput("add project secrets" + Environment.NewLine);
+			this.console.SendInput("add task secrets Eat more donuts." + Environment.NewLine);
+			this.console.SendInput("add task secrets Destroy all humans." + Environment.NewLine);
+			this.console.SendInput("check 1" + Environment.NewLine);
+			ReadLines("secrets",
+					"    [x] 1: Eat more donuts.",
+					"    [ ] 2: Destroy all humans.",
+					"");
+
+        }
+
+
+    }
 }
