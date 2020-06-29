@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using NUnit.Framework;
-using Tasks.Tests;
 
 namespace Tasks
 {
@@ -61,22 +60,19 @@ namespace Tasks
 		[Test, Timeout(1000)]
 		public void HelpTest()
 		{
-			//Execute("help");
+			string expected = "Commands:" + "\n" +
+				"  show" + "\n" +
+				"  add project <project name>" + "\n" +
+				"  add task <project name> <task description>" + "\n" +
+				"  check <task ID>" + "\n" +
+				"  uncheck <task ID>" + "\n" + "";
 
-			//ReadLines("Commands:" ,
-			//	"  show" ,
-			//	"  add project <project name>",
-			//	"  add task <project name> <task description>",
-			//	"  check <task ID>",
-			//	"  uncheck <task ID>",
-			//	"");
 
-				console.SendInput("help" + Environment.NewLine);
-				var temp = console.GetOutput();
+            console.SendInput("help" + Environment.NewLine);
 
-			var test = Console.Out;
+			var actual = console.RetrieveOutput(expected.Length).ToString();
 
-			Assert.That("", Is.EqualTo(""));
+			Assert.That(expected, Is.EqualTo(actual));
 		}
         [Test, Timeout(1000)]
         public void ShowTest()
@@ -89,10 +85,10 @@ namespace Tasks
         public void AddProjectTest()
         {
 			this.console.SendInput("add project secrets" + Environment.NewLine);
-			//ReadLines("secrets",
-			//		"");
-
-        }
+			string expected = "secrets" + "\n" + "";
+			var actual = console.RetrieveOutput(expected.Length).ToString();
+			Assert.That(expected, Is.EqualTo(console.RetrieveOutput(0)));
+		}
 
         [Test, Timeout(1000)]
         public void AddTaskTest()
@@ -101,12 +97,13 @@ namespace Tasks
 			this.console.SendInput("add task secrets Eat more donuts." + Environment.NewLine);
 			this.console.SendInput("add task secrets Destroy all humans." + Environment.NewLine);
 
-			//ReadLines("secrets",
-			//		"    [ ] 1: Eat more donuts.",
-			//		"    [ ] 2: Destroy all humans.",
-			//		"");
-
-        }
+			string expected = "secrets" + "\n" +
+					"    [ ] 1: Eat more donuts." + "\n" +
+					"    [ ] 2: Destroy all humans." + "\n" +
+					"";
+            var actual = console.RetrieveOutput(expected.Length).ToString();
+			Assert.That(expected, Is.EqualTo(console.RetrieveOutput(0)));
+		}
 
         [Test, Timeout(1000)]
         public void SetDoneTest()
@@ -115,12 +112,14 @@ namespace Tasks
 			this.console.SendInput("add task secrets Eat more donuts." + Environment.NewLine);
 			this.console.SendInput("add task secrets Destroy all humans." + Environment.NewLine);
 			this.console.SendInput("check 1" + Environment.NewLine);
-			//ReadLines("secrets",
-			//		"    [x] 1: Eat more donuts.",
-			//		"    [ ] 2: Destroy all humans.",
-			//		"");
 
-        }
+			string expected = "secrets" + "\n" +
+                    "    [x] 1: Eat more donuts." + "\n" +
+                    "    [ ] 2: Destroy all humans." + "\n" +
+                    "";
+            var actual = console.RetrieveOutput(expected.Length).ToString();
+			Assert.That(expected, Is.EqualTo(console.RetrieveOutput(0)));
+		}
 
 
     }
