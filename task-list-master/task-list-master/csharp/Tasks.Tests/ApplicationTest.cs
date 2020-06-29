@@ -107,5 +107,11 @@ namespace Tasks
 		{
 			console.SendInput(input + Environment.NewLine);
 		}
+
+		[Test, Timeout(1000)]
+		public void ShowTest()
+        {
+			Assert.That("", Is.EqualTo(""));
+		}
 	}
 }
