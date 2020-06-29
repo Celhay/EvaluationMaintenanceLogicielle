@@ -6,8 +6,6 @@ namespace Tasks
 {
 	public sealed class TaskList
 	{
-		private const string QUIT = "quit";
-
 		private readonly IDictionary<string, IList<Task>> tasks = new Dictionary<string, IList<Task>>();
 		private readonly IConsole console;
 
@@ -25,13 +23,13 @@ namespace Tasks
         //L'application commence ici
         public void Run()
         {
-            console.Write("> ");
-            var UserCommand = console.ReadLine();
-            while (UserCommand != QUIT)
+			Console.WriteLine("> ");
+            var UserCommand = Console.ReadLine();
+            while (UserCommand != "quit")
             {
                 Execute(UserCommand);
-				console.Write("> ");
-				UserCommand = console.ReadLine();
+				Console.WriteLine("> ");
+				UserCommand = Console.ReadLine();
 			}
         }
 
@@ -73,11 +71,11 @@ namespace Tasks
 		private void Show()
 		{
 			foreach (var project in tasks) {
-				console.WriteLine(project.Key);
+				Console.WriteLine(project.Key);
 				foreach (var task in project.Value) {
-					console.WriteLine("    [{0}] {1}: {2}", (task.Done ? 'x' : ' '), task.Id, task.Description);
+					Console.WriteLine("    [{0}] {1}: {2}", (task.IsDone ? 'x' : ' '), task.Id, task.Description);
 				}
-				console.WriteLine();
+				Console.WriteLine();
 			}
 		}
 
@@ -106,7 +104,7 @@ namespace Tasks
 				Console.WriteLine("Could not find a project with the name \"{0}\".", project);
 				return;
 			}
-			projectTasks.Add(new Task { Id = NextId(), Description = description, Done = false });
+			projectTasks.Add(new Task { Id = ++lastId, Description = description, IsDone = false });
 		}
 
 		private void Check(string idString, bool isCheck) //Check = true  Uncheck = false
@@ -122,32 +120,27 @@ namespace Tasks
 				.Where(task => task != null)
 				.FirstOrDefault();
 			if (identifiedTask == null) {
-				console.WriteLine("Could not find a task with an ID of {0}.", id);
+				Console.WriteLine("Could not find a task with an ID of {0}.", id);
 				return;
 			}
 
-			identifiedTask.Done = done;
+			identifiedTask.IsDone = done;
 		}
 
 		private void Help()
 		{
-			console.WriteLine("Commands:");
-			console.WriteLine("  show");
-			console.WriteLine("  add project <project name>");
-			console.WriteLine("  add task <project name> <task description>");
-			console.WriteLine("  check <task ID>");
-			console.WriteLine("  uncheck <task ID>");
-			console.WriteLine();
+			Console.WriteLine("Commands:");
+			Console.WriteLine("  show");
+			Console.WriteLine("  add project <project name>");
+			Console.WriteLine("  add task <project name> <task description>");
+			Console.WriteLine("  check <task ID>");
+			Console.WriteLine("  uncheck <task ID>");
+			Console.WriteLine();
 		}
 
 		private void Error(string command)
 		{
-			console.WriteLine("I don't know what the command \"{0}\" is.", command);
-		}
-
-		private long NextId()
-		{
-			return ++lastId;
+			Console.WriteLine("I don't know what the command \"{0}\" is.", command);
 		}
 	}
 }
