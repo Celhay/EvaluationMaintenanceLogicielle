@@ -22,20 +22,20 @@ namespace Tasks
 		{
 			this.console = console;
 		}
-
-		public void Run()
-		{
-			while (true) {
+        //L'application commence Ici
+        public void Run()
+        {
+            console.Write("> ");
+            var command = console.ReadLine();
+            while (command == QUIT)
+            {
+                Execute(command);
 				console.Write("> ");
-				var command = console.ReadLine();
-				if (command == QUIT) {
-					break;
-				}
-				Execute(command);
+				command = console.ReadLine();
 			}
-		}
+        }
 
-		private void Execute(string commandLine)
+        private void Execute(string commandLine)
 		{
 			var commandRest = commandLine.Split(" ".ToCharArray(), 2);
 			var command = commandRest[0];
