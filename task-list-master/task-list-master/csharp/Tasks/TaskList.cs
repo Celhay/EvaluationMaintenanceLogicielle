@@ -27,7 +27,6 @@ namespace Tasks
 		//L'application commence ici
 		public void Run()
         {
-			//Console.WriteLine("Bienvenue !");
 			Console.WriteLine("> ");
             var UserCommand = Console.ReadLine();
             while (UserCommand != "quit")
