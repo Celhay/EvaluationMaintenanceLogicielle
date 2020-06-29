@@ -7,7 +7,7 @@ namespace Tasks
 	public sealed class TaskList
 	{
 		private readonly IDictionary<string, IList<Task>> tasks = new Dictionary<string, IList<Task>>();
-		//private readonly IConsole console;
+		private readonly IConsole console;
 		private long lastId = 0;
 
 		public static void Main(string[] args)
@@ -20,6 +20,10 @@ namespace Tasks
 
 		}
 
+		public TaskList(IConsole console)
+		{
+			this.console = console;
+		}
 		//L'application commence ici
 		public void Run()
         {
