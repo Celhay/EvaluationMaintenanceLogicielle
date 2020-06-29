@@ -26,39 +26,47 @@ namespace Tasks
         public void Run()
         {
             console.Write("> ");
-            var command = console.ReadLine();
-            while (command != QUIT)
+            var UserCommand = console.ReadLine();
+            while (UserCommand != QUIT)
             {
-                Execute(command);
+                Execute(UserCommand);
 				console.Write("> ");
-				command = console.ReadLine();
+				UserCommand = console.ReadLine();
 			}
         }
 
         private void Execute(string commandLine)
 		{
 			var commandRest = commandLine.Split(" ".ToCharArray(), 2);
-			var command = commandRest[0];
-			switch (command) {
-			case "show":
-				Show();
-				break;
-			case "add":
-				Add(commandRest[1]);
-				break;
-			case "check":
-				Check(commandRest[1]);
-				break;
-			case "uncheck":
-				Uncheck(commandRest[1]);
-				break;
-			case "help":
-				Help();
-				break;
-			default:
-				Error(command);
-				break;
+			var command = commandRest[0]; try
+            {
+				switch (command)
+				{
+					case "show":
+						Show();
+						break;
+					case "add":
+						Add(commandRest[1]);
+						break;
+					case "check":
+						Check(commandRest[1], true);
+						break;
+					case "uncheck":
+						Check(commandRest[1], false);
+						break;
+					case "help":
+						Help();
+						break;
+					default:
+						Error(command);
+						break;
+				}
 			}
+			catch(Exception ex)
+            {
+				throw new Exception (ex.Message);
+			}
+			
 		}
 
 		private void Show()
@@ -99,14 +107,9 @@ namespace Tasks
 			projectTasks.Add(new Task { Id = NextId(), Description = description, Done = false });
 		}
 
-		private void Check(string idString)
+		private void Check(string idString, bool isCheck) //Check = true  Uncheck = false
 		{
-			SetDone(idString, true);
-		}
-
-		private void Uncheck(string idString)
-		{
-			SetDone(idString, false);
+			SetDone(idString, isCheck); 
 		}
 
 		private void SetDone(string idString, bool done)
