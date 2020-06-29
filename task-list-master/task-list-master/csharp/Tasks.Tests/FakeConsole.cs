@@ -30,9 +30,9 @@ namespace Tasks
 			return inputReader.ReadLine();
 		}
 
-		public void WriteChevrons()
+		public void Write(string format, params object[] args)
 		{
-			outputWriter.WriteLine("> ");
+			outputWriter.Write(format, args);
 		}
 
 		public void WriteLine(string format, params object[] args)
