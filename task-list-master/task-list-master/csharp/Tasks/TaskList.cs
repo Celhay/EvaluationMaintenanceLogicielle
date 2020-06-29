@@ -14,9 +14,11 @@ namespace Tasks
 		{
 			new TaskList().Run();
 		}
+
         //L'application commence ici
         public void Run()
         {
+			Console.WriteLine("Bienvenue !");
 			Console.WriteLine("> ");
             var UserCommand = Console.ReadLine();
             while (UserCommand != "quit")
@@ -63,19 +65,27 @@ namespace Tasks
 		}
 
 		private void Show()
-		{
-			foreach (var project in tasks) {
-				Console.WriteLine(project.Key);
-				foreach (var task in project.Value) {
-					Console.WriteLine("    [{0}] {1}: {2}", (task.IsDone ? 'x' : ' '), task.Id, task.Description);
-				}
-				Console.WriteLine();
-			}
-		}
+        {
+            if (tasks.Count > 0)
+            {
+                foreach (var project in tasks)
+                {
+                    Console.WriteLine(project.Key);
+                    foreach (var task in project.Value)
+                    {
+                        Console.WriteLine("    [{0}] {1}: {2}", (task.IsDone ? 'x' : ' '), task.Id, task.Description);
+                    }
+                    Console.WriteLine();
+                }
+				return;
+            }
+			Console.WriteLine("Nothing to see here ");
 
-		private void Add(string userCommand)
+        }
+
+        private void Add(string entree)
 		{
-			var userCommandTab = userCommand.Split(" ".ToCharArray(), 2);
+			var userCommandTab = entree.Split(" ".ToCharArray(), 2);
 			var command = userCommandTab[0];
 			if (command == "project") {
 				tasks[userCommandTab[1]] = new List<Task>();
@@ -88,12 +98,12 @@ namespace Tasks
 
 		private void AddTask(string project, string description)
 		{
-			if (!tasks.TryGetValue(project, out IList<Task> projectTasks))
+			if (tasks.TryGetValue(project, out IList<Task> projectTasks))
 			{
-				Console.WriteLine("Could not find a project with the name \"{0}\".", project);
+				projectTasks.Add(new Task { Id = ++lastId, Description = description, IsDone = false });
 				return;
 			}
-			projectTasks.Add(new Task { Id = ++lastId, Description = description, IsDone = false });
+			Console.WriteLine("Could not find a project with the name \"{0}\".", project);
 		}
 
 		private void SetDone(string idString, bool done) //Check = true  Uncheck = false
@@ -110,7 +120,7 @@ namespace Tasks
 
 			identifiedTask.IsDone = done;
 		}
-
+		
 		private void Help()
 		{
 			Console.WriteLine("Commands:");
