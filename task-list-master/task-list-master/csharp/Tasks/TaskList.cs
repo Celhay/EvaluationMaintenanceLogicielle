@@ -42,16 +42,16 @@ namespace Tasks
 						Add(commandTableau[1]);
 						break;
 					case "check":
-						Check(commandTableau[1], true);
+						SetDone(commandTableau[1], true);
 						break;
 					case "uncheck":
-						Check(commandTableau[1], false);
+						SetDone(commandTableau[1], false);
 						break;
 					case "help":
 						Help();
 						break;
 					default:
-						Error(UserCommand);
+						Console.WriteLine("I don't know what the command \"{0}\" is.", UserCommand);
 						break;
 				}
 			}
@@ -73,22 +73,17 @@ namespace Tasks
 			}
 		}
 
-		private void Add(string commandLine)
+		private void Add(string userCommand)
 		{
-			var subcommandRest = commandLine.Split(" ".ToCharArray(), 2);
-			var subcommand = subcommandRest[0];
-			if (subcommand == "project") {
-				AddProject(subcommandRest[1]);
+			var userCommandTab = userCommand.Split(" ".ToCharArray(), 2);
+			var command = userCommandTab[0];
+			if (command == "project") {
+				tasks[userCommandTab[1]] = new List<Task>();
 			} 
-			if (subcommand == "task") {
-				var projectTask = subcommandRest[1].Split(" ".ToCharArray(), 2);
+			if (command == "task") {
+				var projectTask = userCommandTab[1].Split(" ".ToCharArray(), 2);
 				AddTask(projectTask[0], projectTask[1]);
 			}
-		}
-
-		private void AddProject(string name)
-		{
-			tasks[name] = new List<Task>();
 		}
 
 		private void AddTask(string project, string description)
@@ -101,12 +96,7 @@ namespace Tasks
 			projectTasks.Add(new Task { Id = ++lastId, Description = description, IsDone = false });
 		}
 
-		private void Check(string idString, bool isCheck) //Check = true  Uncheck = false
-		{
-			SetDone(idString, isCheck); 
-		}
-
-		private void SetDone(string idString, bool done)
+		private void SetDone(string idString, bool done) //Check = true  Uncheck = false
 		{
 			int id = int.Parse(idString);
 			var identifiedTask = tasks
@@ -130,11 +120,6 @@ namespace Tasks
 			Console.WriteLine("  check <task ID>");
 			Console.WriteLine("  uncheck <task ID>");
 			Console.WriteLine();
-		}
-
-		private void Error(string command)
-		{
-			Console.WriteLine("I don't know what the command \"{0}\" is.", command);
 		}
 	}
 }
