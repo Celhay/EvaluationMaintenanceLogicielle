@@ -40,17 +40,21 @@ namespace Tasks
 			outputWriter.WriteLine();
 		}
 
-		public void SendInput(string input)
-		{
-			inputWriter.Write(input);
-		}
-
-        public string RetrieveOutput(int length)
+		public string RetrieveOutput(int length)
         {
             var buffer = new char[length];
             outputReader.ReadBlock(buffer, 0, length);
             return new string(buffer);
 
         }
-    }
+
+		public void SendInput(string input)
+		{
+			inputWriter.Write(input);
+		}
+		public string GetOutput()
+		{
+			return outputWriter.ToString();
+		}
+	}
 }
