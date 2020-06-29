@@ -7,8 +7,6 @@ namespace Tasks
 	[TestFixture]
 	public sealed class ApplicationTest
 	{
-		public const string PROMPT = "> ";
-
 		private FakeConsole console;
 		private System.Threading.Thread applicationThread;
 
@@ -84,15 +82,24 @@ namespace Tasks
 
         private void Execute(string command)
         {
-            Read(PROMPT);
+			Read("Bienvenue !");
+			Read("> ");
             Write(command);
         }
 
         private void Read(string expectedOutput)
-		{
-			var length = expectedOutput.Length;
-			var actualOutput = console.RetrieveOutput(expectedOutput.Length);
-			Assert.AreEqual(expectedOutput, actualOutput);
+        {
+            try
+            {
+				var length = expectedOutput.Length;
+				var actualOutput = console.RetrieveOutput(expectedOutput.Length);
+				Assert.AreEqual(expectedOutput, actualOutput);
+			}
+            catch (Exception ex)
+			{
+				throw ex;
+			}
+			
 		}
 
 		private void ReadLines(params string[] expectedOutput)
