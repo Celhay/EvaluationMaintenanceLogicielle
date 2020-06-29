@@ -9,6 +9,7 @@ namespace Tasks
 			return Console.ReadLine();
 		}
 
+		//transformer en WriteChevrons
 		public void Write(string format, params object[] args)
 		{
 			Console.Write(format, args);

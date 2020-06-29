@@ -37,28 +37,29 @@ namespace Tasks
 
         private void Execute(string commandLine)
 		{
-			var commandRest = commandLine.Split(" ".ToCharArray(), 2);
-			var command = commandRest[0]; try
+			var commandTableau = commandLine.Split(" ".ToCharArray(), 2);
+			var UserCommand = commandTableau[0]; 
+			try
             {
-				switch (command)
+				switch (UserCommand)
 				{
 					case "show":
 						Show();
 						break;
 					case "add":
-						Add(commandRest[1]);
+						Add(commandTableau[1]);
 						break;
 					case "check":
-						Check(commandRest[1], true);
+						Check(commandTableau[1], true);
 						break;
 					case "uncheck":
-						Check(commandRest[1], false);
+						Check(commandTableau[1], false);
 						break;
 					case "help":
 						Help();
 						break;
 					default:
-						Error(command);
+						Error(UserCommand);
 						break;
 				}
 			}
@@ -86,7 +87,8 @@ namespace Tasks
 			var subcommand = subcommandRest[0];
 			if (subcommand == "project") {
 				AddProject(subcommandRest[1]);
-			} else if (subcommand == "task") {
+			} 
+			if (subcommand == "task") {
 				var projectTask = subcommandRest[1].Split(" ".ToCharArray(), 2);
 				AddTask(projectTask[0], projectTask[1]);
 			}
