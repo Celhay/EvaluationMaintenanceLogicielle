@@ -11,15 +11,12 @@ namespace Tasks
 
 		private FakeConsole console;
 		private System.Threading.Thread applicationThread;
-		private TaskList taskList;
-
-
 
 		[SetUp]
 		public void StartTheApplication()
 		{
 			this.console = new FakeConsole();
-			this.taskList = new TaskList(console);
+			var taskList = new TaskList(console);
 			this.applicationThread = new System.Threading.Thread(() => taskList.Run());
 			applicationThread.Start();
 		}
@@ -114,7 +111,8 @@ namespace Tasks
 		[Test, Timeout(1000)]
 		public void ShowTest()
         {
-			Assert.That("Hello ", Is.EqualTo(taskList.show("show"));
+			this.console.SendInput("show" + Environment.NewLine);
+			Assert.That(string.Empty, Is.EqualTo(console.RetrieveOutput(0)));
 		}
 	}
 }
