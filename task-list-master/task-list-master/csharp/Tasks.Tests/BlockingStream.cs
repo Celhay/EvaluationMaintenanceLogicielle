@@ -24,15 +24,19 @@ namespace Tasks
 		public override int Read(byte[] buffer, int offset, int count)
 		{
 			int read = 0;
-			while (read <= 0)
+			while (true)
 			{
 				lock (underlyingStream)
 				{
 					read = underlyingStream.Read(buffer, offset, count);
+					if (read > 0)
+					{
+						return read;
+					}
 				}
+
 				Thread.Yield();
 			}
-			return read;
 		}
 
 		public override long Seek(long offset, SeekOrigin origin)

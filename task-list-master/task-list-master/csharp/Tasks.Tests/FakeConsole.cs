@@ -46,10 +46,18 @@ namespace Tasks
 		}
 
 		public string RetrieveOutput(int length)
-		{
-			var buffer = new char[length];
-			outputReader.ReadBlock(buffer, 0, length);
-			return new string(buffer);
+        {
+            try
+            {
+				var buffer = new char[length];
+				outputReader.ReadBlock(buffer, 0, length);
+				return new string(buffer);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			
 		}
 	}
 }

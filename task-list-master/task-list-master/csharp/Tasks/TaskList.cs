@@ -15,10 +15,14 @@ namespace Tasks
 			new TaskList().Run();
 		}
 
-        //L'application commence ici
-        public void Run()
+		public TaskList ( IConsole console)
         {
-			Console.WriteLine("Bienvenue !");
+			this.console = console;
+        }
+		//L'application commence ici
+		public void Run()
+        {
+			//Console.WriteLine("Bienvenue !");
 			Console.WriteLine("> ");
             var UserCommand = Console.ReadLine();
             while (UserCommand != "quit")
