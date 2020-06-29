@@ -22,6 +22,7 @@ namespace Tasks
 		{
 			this.console = console;
 		}
+
         //L'application commence ici
         public void Run()
         {
