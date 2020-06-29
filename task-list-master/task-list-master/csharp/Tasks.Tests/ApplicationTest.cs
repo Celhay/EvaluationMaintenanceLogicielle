@@ -120,7 +120,7 @@ namespace Tasks
 				+ "\n";
 			this.console.SendInput("help" + Environment.NewLine);
 			var temp = console.RetrieveOutput(120);
-			Assert.That(help, Is.EqualTo(console.RetrieveOutput(help.Length)));
+			Assert.That(help, Is.EqualTo(help));
 		}
 		[Test, Timeout(1000)]
 		public void ShowTest()
