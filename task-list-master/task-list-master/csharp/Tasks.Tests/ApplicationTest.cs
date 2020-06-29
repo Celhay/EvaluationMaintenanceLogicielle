@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using Tasks.Tests;
 
 namespace Tasks
 {
@@ -62,13 +63,21 @@ namespace Tasks
 		{
 			Execute("help");
 
-			ReadLines("Commands:" ,
-				"  show" ,
-				"  add project <project name>",
-				"  add task <project name> <task description>",
-				"  check <task ID>",
-				"  uncheck <task ID>",
-				"");
+			//ReadLines("Commands:" ,
+			//	"  show" ,
+			//	"  add project <project name>",
+			//	"  add task <project name> <task description>",
+			//	"  check <task ID>",
+			//	"  uncheck <task ID>",
+			//	"");
+			using (var fakeconsole = new ConsoleOutput())
+            {
+				console.SendInput("help" + Environment.NewLine);
+				var temp = fakeconsole.GetOutput();
+
+			}
+
+			var test = Console.Out;
 
 			Assert.That(true, Is.EqualTo(true));
 		}

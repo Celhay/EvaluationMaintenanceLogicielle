@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Tasks.Tests
 {
-    public class Logger : IDisposable
+    public class ConsoleOutput : IDisposable
     {
         private StringWriter stringWriter;
         private TextWriter textWriter;
-        public Logger()
+        public ConsoleOutput()
         {
             stringWriter = new StringWriter();
             textWriter = Console.Out;
